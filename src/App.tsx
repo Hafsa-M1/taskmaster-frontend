@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthContext } from './context/AuthContext';
+import { AuthContext, AuthProvider } from './context/AuthContext'; // Add AuthProvider import
+import { TaskProvider } from './context/TaskContext';
 
 import Landing from './components/Landing/Landing';
 import Login from './components/Auth/Login';
@@ -28,29 +29,32 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-50">
-        <Routes>
-          {/* Public routes */}
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+        <AuthProvider>
+          <TaskProvider>
+            <Routes>
+              {/* Public routes */}
+              <Route path="/" element={<Landing />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
 
-          {/* Protected route */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
+              {/* Protected route */}
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
 
-          {/* Catch-all (404) → redirect to landing or login */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+              {/* Catch-all (404) → redirect to landing or login */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </TaskProvider>
+        </AuthProvider>
       </div>
     </Router>
   );
 }
 
 export default App;
-export {}; 

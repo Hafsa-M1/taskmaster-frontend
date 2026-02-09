@@ -18,8 +18,7 @@ interface AuthContextType {
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// IMPORTANT: Check if your backend is running on 3001
-const API_URL = "http://localhost:3000"; // Change from 3000 to 3001
+const API_URL = "http://localhost:3000";
 
 // Create axios instance
 const api = axios.create({
@@ -35,20 +34,27 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("AuthProvider mounted, checking localStorage...");
     const storedToken = localStorage.getItem("token");
+    console.log("Stored token found:", storedToken ? "Yes" : "No");
     
     if (storedToken) {
+      console.log("Token length:", storedToken.length);
+      console.log("Token preview:", storedToken.substring(0, 20) + "...");
+      
       setToken(storedToken);
       api.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
       
       // Fetch user data
+      console.log("Fetching user data with token...");
       api.get("/auth/me")
         .then(res => {
+          console.log("User data fetched successfully:", res.data);
           setUser(res.data);
         })
         .catch(error => {
-          console.error("Failed to fetch user:", error);
-          // Token is invalid or expired
+          console.error("Failed to fetch user:", error.response?.data || error.message);
+          console.log("Clearing invalid token...");
           localStorage.removeItem("token");
           delete api.defaults.headers.common['Authorization'];
           setToken(null);
@@ -58,16 +64,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           setLoading(false);
         });
     } else {
+      console.log("No token found in localStorage");
       setLoading(false);
     }
   }, []);
 
   const login = async (email: string, password: string) => {
+    console.log("Login attempt for:", email);
     try {
       const res = await api.post("/auth/login", { email, password });
       
-      // CRITICAL: Check the actual response structure
-      console.log("Login response:", res.data); // Add this for debugging
+      console.log("Login response:", res.data);
       
       const { access_token, user: userData } = res.data;
       
@@ -75,14 +82,31 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         throw new Error("No access token received");
       }
 
+      console.log("Access token received, saving to localStorage...");
+      console.log("Token to save:", access_token.substring(0, 20) + "...");
+      
       localStorage.setItem("token", access_token);
+      
+      // Verify it was saved
+      const savedToken = localStorage.getItem("token");
+      console.log("Token saved successfully:", savedToken ? "Yes" : "No");
+      if (savedToken) {
+        console.log("Saved token matches:", savedToken === access_token);
+      }
+      
       api.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
       
       setToken(access_token);
       setUser(userData);
       
+      console.log("Login completed successfully");
+      
     } catch (error: any) {
-      console.error("Login error:", error.response?.data || error.message);
+      console.error("Login error details:", {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
       const message = error.response?.data?.message || 
                      error.response?.data?.error || 
                      "Login failed";
@@ -103,16 +127,23 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const logout = () => {
+    console.log("Logout called, clearing token");
     localStorage.removeItem("token");
     delete api.defaults.headers.common['Authorization'];
     setToken(null);
     setUser(null);
   };
 
-  // Show a simple loading indicator
   if (loading) {
-    return <div>Loading...</div>;
+    console.log("AuthProvider still loading...");
+    return <div className="min-h-screen flex items-center justify-center">Loading authentication...</div>;
   }
+
+  console.log("AuthProvider rendering with:", { 
+    user: user?.email, 
+    hasToken: !!token,
+    loading 
+  });
 
   return (
     <AuthContext.Provider value={{ user, token, loading, login, register, logout }}>
