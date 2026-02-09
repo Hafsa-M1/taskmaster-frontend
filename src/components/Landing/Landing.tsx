@@ -55,39 +55,66 @@ const Landing = () => {
       title: "Smart Task Management",
       description: "AI-powered task prioritization with auto-scheduling and context-aware organization.",
       icon: (
-        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24">
+          <defs>
+            <linearGradient id="grad-feature-1" x1="0%" x2="100%" y1="0%" y2="100%">
+              <stop offset="0%" stopColor="#10B981" />
+              <stop offset="100%" stopColor="#0f766e" />
+            </linearGradient>
+          </defs>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} stroke="url(#grad-feature-1)" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
         </svg>
       ),
       gradient: "from-emerald-500 to-teal-600",
       hoverGradient: "from-emerald-600 to-teal-700",
-      stats: "12500+ tasks managed daily"
+      stats: "12500+ tasks managed daily",
+      textColor: "text-emerald-900",
+      descriptionColor: "text-emerald-800",
+      iconColor: "text-emerald-800"
     },
     {
       id: 2,
       title: "Precision Time Tracking",
       description: "Automatic time tracking with detailed analytics and productivity insights.",
       icon: (
-        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24">
+          <defs>
+            <linearGradient id="grad-feature-2" x1="0%" x2="100%" y1="0%" y2="100%">
+              <stop offset="0%" stopColor="#7c3aed" />
+              <stop offset="100%" stopColor="#6d28d9" />
+            </linearGradient>
+          </defs>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} stroke="url(#grad-feature-2)" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
       gradient: "from-violet-500 to-purple-600",
       hoverGradient: "from-violet-600 to-purple-700",
-      stats: "89,000+ hours tracked"
+      stats: "89,000+ hours tracked",
+      textColor: "text-violet-900",
+      descriptionColor: "text-violet-800",
+      iconColor: "text-violet-800"
     },
     {
       id: 3,
       title: "Advanced Analytics",
       description: "Predictive insights and performance forecasting with visual dashboards.",
       icon: (
-        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24">
+          <defs>
+            <linearGradient id="grad-feature-3" x1="0%" x2="100%" y1="0%" y2="100%">
+              <stop offset="0%" stopColor="#f59e0b" />
+              <stop offset="100%" stopColor="#ea580c" />
+            </linearGradient>
+          </defs>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} stroke="url(#grad-feature-3)" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
         </svg>
       ),
       gradient: "from-amber-500 to-orange-600",
       hoverGradient: "from-amber-600 to-orange-700",
-      stats: "98% productivity increase"
+      stats: "98% productivity increase",
+      textColor: "text-amber-900",
+      descriptionColor: "text-amber-800",
+      iconColor: "text-amber-800"
     }
   ];
 
@@ -172,7 +199,7 @@ const Landing = () => {
             {/* Updated Login Button */}
             <Link
               to="/login"
-              className="relative px-8 py-3 bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-slate-700/30 overflow-hidden group border border-slate-700"
+              className="relative px-8 py-3 bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 font-bold text-blue-800 group-hover:text-blue-700 font-semibold rounded-xl transition-all d"
             >
               <span className="relative z-10 flex items-center gap-2">
                 <span>Log In</span>
@@ -297,21 +324,21 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="relative py-32 px-6 bg-gradient-to-b from-slate-900 to-gray-900">
+      {/* Features Section - COMPLETELY UPDATED FOR DARK TEXT */}
+      <section className="relative py-32 px-6 bg-gradient-to-b from-gray-100 to-gray-200">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-6xl font-black mb-6">
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Modern Features
               </span>
             </h2>
-            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto font-medium">
               Designed for the next generation of productivity
             </p>
           </div>
 
-          {/* Interactive feature cards */}
+          {/* Interactive feature cards - WITH DARK TEXT */}
           <div className="grid md:grid-cols-3 gap-8 lg:gap-10">
             {features.map((feature) => (
               <div
@@ -325,36 +352,36 @@ const Landing = () => {
                 {/* Card glow effect */}
                 <div className={`absolute -inset-0.5 bg-gradient-to-r ${feature.gradient} rounded-3xl blur opacity-0 group-hover:opacity-30 transition-opacity duration-500`}></div>
                 
-                <div className="relative bg-slate-900/80 backdrop-blur-xl rounded-3xl p-10 border border-slate-800 shadow-2xl overflow-hidden">
+                <div className="relative bg-white backdrop-blur-sm rounded-3xl p-10 border border-gray-300/50 shadow-2xl overflow-hidden">
                   {/* Animated background */}
-                  <div className="absolute inset-0 opacity-10">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0 bg-gradient-to-br from-gray-900/10 to-transparent"></div>
                   </div>
 
-                  {/* Icon with gradient */}
-                  <div className={`relative w-20 h-20 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center mb-8 transform group-hover:rotate-6 transition-transform duration-500 shadow-xl`}>
-                    <div className="text-white">
+                  {/* Icon with gradient - UPDATED WITH DARK ICONS */}
+                  <div className={`relative w-20 h-20 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center mb-8 transform group-hover:rotate-6 transition-transform duration-500 shadow-lg`}>
+                    <div className={feature.iconColor}>
                       {feature.icon}
                     </div>
                   </div>
 
-                  {/* Content */}
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-all duration-300">
+                  {/* Content - UPDATED WITH DARK TEXT */}
+                  <h3 className={`text-2xl font-bold ${feature.textColor} mb-4 group-hover:scale-105 transition-transform duration-300`}>
                     {feature.title}
                   </h3>
-                  <p className="text-slate-400 mb-6 leading-relaxed">
+                  <p className={`${feature.descriptionColor} mb-6 leading-relaxed font-medium`}>
                     {feature.description}
                   </p>
                   
-                  {/* Stats badge */}
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800/50 rounded-full">
+                  {/* Stats badge - UPDATED WITH DARK TEXT */}
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100/80 backdrop-blur-sm rounded-full border border-gray-300/50">
                     <div className={`w-2 h-2 bg-gradient-to-r ${feature.gradient} rounded-full animate-pulse`}></div>
-                    <span className="text-sm font-medium text-slate-300">{feature.stats}</span>
+                    <span className="text-sm font-medium text-gray-800">{feature.stats}</span>
                   </div>
 
                   {/* Hover arrow */}
                   <div className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 translate-x-4 transition-all duration-500">
-                    <div className={`w-10 h-10 bg-gradient-to-r ${feature.gradient} rounded-full flex items-center justify-center`}>
+                    <div className={`w-10 h-10 bg-gradient-to-r ${feature.gradient} rounded-full flex items-center justify-center shadow-lg`}>
                       <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
@@ -365,24 +392,26 @@ const Landing = () => {
             ))}
           </div>
 
-          {/* Interactive demo preview */}
-          <div className="mt-20 relative rounded-3xl overflow-hidden border border-slate-800 shadow-2xl">
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900 to-gray-900"></div>
+          {/* Interactive demo preview - UPDATED WITH LIGHT BACKGROUND */}
+          <div className="mt-20 relative rounded-3xl overflow-hidden border border-gray-300/50 shadow-2xl bg-gradient-to-br from-white to-gray-100">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-cyan-500/5"></div>
             <div className="relative p-12 text-center">
               <div className="inline-flex items-center gap-4 mb-8">
                 <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
                 <div className="w-3 h-3 bg-yellow-500 rounded-full animate-pulse"></div>
                 <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
               </div>
-              <h3 className="text-3xl font-bold text-white mb-4">Live Interactive Demo</h3>
-              <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
+              <h3 className="text-3xl font-bold text-gray-800 mb-4">Live Interactive Demo</h3>
+              <p className="text-gray-600 mb-8 max-w-2xl mx-auto font-medium">
                 Experience TaskMaster's intuitive interface with real-time updates and seamless interactions
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
                 {['Task Creation', 'Time Tracking', 'Analytics Dashboard'].map((item, index) => (
-                  <div key={index} className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700 hover:border-slate-600 transition-colors">
-                    <div className="text-white font-semibold mb-2">{item}</div>
-                    <div className="text-sm text-slate-400">Click to interact</div>
+                  <div key={index} className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-gray-300 hover:border-blue-500/50 transition-all duration-300 hover:scale-105 group shadow-md">
+                    <div className="text-gray-800 font-semibold mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
+                      {item}
+                    </div>
+                    <div className="text-sm text-gray-600 group-hover:text-gray-700 transition-colors">Click to interact</div>
                   </div>
                 ))}
               </div>
@@ -390,8 +419,6 @@ const Landing = () => {
           </div>
         </div>
       </section>
-
-
 
       {/* Footer */}
       <footer className="relative py-16 px-6 bg-slate-950 border-t border-slate-800">
@@ -412,15 +439,27 @@ const Landing = () => {
             </div>
             
             <div className="flex gap-6">
-              {['Twitter', 'LinkedIn', 'GitHub'].map((social, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  className="w-12 h-12 bg-slate-900 hover:bg-slate-800 rounded-xl flex items-center justify-center text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 border border-slate-800"
-                >
-                  {social.charAt(0)}
-                </a>
-              ))}
+              
+
+              <a
+                href="#"
+                aria-label="LinkedIn"
+                className="w-12 h-12 bg-gradient-to-tr from-blue-600 to-blue-800 rounded-xl flex items-center justify-center text-white transition-all duration-300 hover:scale-110 shadow-md"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.98h4V24h-4V8.98zM8.98 8.98h3.84v2.07h.05c.54-1.02 1.86-2.1 3.83-2.1 4.1 0 4.86 2.7 4.86 6.21V24h-4v-7.5c0-1.79-.03-4.09-2.49-4.09-2.49 0-2.87 1.94-2.87 3.96V24h-4V8.98z" />
+                </svg>
+              </a>
+
+              <a
+                href="#"
+                aria-label="GitHub"
+                className="w-12 h-12 bg-gradient-to-tr from-gray-800 to-black rounded-xl flex items-center justify-center text-white transition-all duration-300 hover:scale-110 shadow-md"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.38 7.86 10.9.58.11.79-.25.79-.56 0-.28-.01-1.02-.01-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.72 1.27 3.38.97.11-.75.41-1.27.75-1.56-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.19-3.1-.12-.3-.52-1.52.11-3.17 0 0 .97-.31 3.17 1.18a11 11 0 015.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.65.23 2.87.12 3.17.74.81 1.19 1.84 1.19 3.1 0 4.43-2.71 5.4-5.29 5.68.42.36.8 1.08.8 2.18 0 1.58-.01 2.85-.01 3.24 0 .31.21.68.8.56C20.71 21.38 24 17.08 24 12c0-6.27-5.23-11.5-12-11.5z" />
+                </svg>
+              </a>
             </div>
           </div>
           
