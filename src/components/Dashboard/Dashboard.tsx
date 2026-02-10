@@ -5,7 +5,7 @@ import { TaskContext } from '../../context/TaskContext';
 import TaskList from '../Task/TaskList';
 import CreateTaskModal from '../Task/CreateTaskModal';
 import Timer from '../Task/Timer';
-import { Toaster } from 'react-hot-toast';
+
 
 const Dashboard = () => {
   const { user, token, logout } = useContext(AuthContext)!;
@@ -182,31 +182,9 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 md:p-6 lg:p-8">
-      {/* Toaster for notifications */}
-      <Toaster 
-        position="top-right"
-        toastOptions={{
-          duration: 4000,
-          style: {
-            background: '#363636',
-            color: '#fff',
-          },
-          success: {
-            duration: 3000,
-            iconTheme: {
-              primary: '#10B981',
-              secondary: '#fff',
-            },
-          },
-          error: {
-            duration: 4000,
-            iconTheme: {
-              primary: '#EF4444',
-              secondary: '#fff',
-            },
-          },
-        }}
-      />
+     
+      
+      
       
       <div className="max-w-7xl mx-auto">
         {/* Header */}
