@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import toast from 'react-hot-toast'; 
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +11,6 @@ const Register = () => {
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -56,14 +56,43 @@ const Register = () => {
 
     try {
       await register(formData.email, formData.password, formData.name);
-      setShowSuccess(true);
       
-      // Show success animation before redirect
+      // Use toast.success() instead of custom overlay
+      toast.success(
+        <div className="text-center">
+          <div className="font-semibold text-lg mb-1">🎉 Welcome to TaskMaster!</div>
+          <p className="text-sm">Account created successfully</p>
+        </div>,
+        {
+          duration: 3000,
+          icon: '👋',
+          style: {
+            background: '#059669',
+            color: '#fff',
+          },
+          iconTheme: {
+            primary: '#fff',
+            secondary: '#059669',
+          },
+        }
+      );
+      
+      // Redirect after toast
       setTimeout(() => {
         navigate('/dashboard');
-      }, 2000);
+      }, 1500);
     } catch (err: any) {
-      setError(err.message || 'Registration failed. Please try again.');
+      const errorMessage = err.message || 'Registration failed. Please try again.';
+      setError(errorMessage);
+      
+      // Show error toast
+      toast.error(errorMessage, {
+        duration: 4000,
+        style: {
+          background: '#dc2626',
+          color: '#fff',
+        },
+      });
     } finally {
       setLoading(false);
     }
@@ -112,25 +141,6 @@ const Register = () => {
         }}
       />
 
-      {/* Success notification overlay */}
-      {showSuccess && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-md z-50 animate-fadeIn">
-          <div className="bg-gradient-to-br from-emerald-500 to-teal-600 p-8 rounded-3xl shadow-2xl transform scale-95 animate-scaleUp">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <h3 className="text-3xl font-bold text-white mb-2">Welcome to TaskMaster!</h3>
-              <p className="text-emerald-100 mb-6">Account created successfully</p>
-              <div className="w-12 h-1 bg-white/30 rounded-full mx-auto"></div>
-              <p className="text-white/80 text-sm mt-6 animate-pulse">Redirecting to dashboard...</p>
-            </div>
-          </div>
-        </div>
-      )}
-
       <div className="relative w-full max-w-md">
         {/* Glowing background effect */}
         <div className="absolute -inset-4 bg-gradient-to-r from-indigo-600/20 via-purple-600/20 to-pink-600/20 rounded-3xl blur-2xl"></div>
@@ -145,7 +155,7 @@ const Register = () => {
                 </span>
               </div>
             </Link>
-            <h2 className="text-2xl font-semi bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 hover:from-indigo-300 hover:to-purple-300 transition-all duration-300">Create Your Account</h2>
+            <h2 className="text-xl font-semi bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 hover:from-indigo-300 hover:to-purple-300 transition-all duration-300">Create Your Account</h2>
             <p className="mt-2 text-slate-400">
               Join thousands of productive users
             </p>
@@ -321,8 +331,6 @@ const Register = () => {
             </div>
           </form>
 
-          
-
           {/* Login link */}
           <p className="mt-8 text-center text-sm text-slate-500">
             Already have an account?{' '}
@@ -344,23 +352,9 @@ const Register = () => {
           50% { transform: translateY(-5px) translateX(-5px); }
           75% { transform: translateY(5px) translateX(2px); }
         }
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes scaleUp {
-          from { transform: scale(0.9); opacity: 0; }
-          to { transform: scale(1); opacity: 1; }
-        }
         @keyframes slideDown {
           from { transform: translateY(-10px); opacity: 0; }
           to { transform: translateY(0); opacity: 1; }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.3s ease-out;
-        }
-        .animate-scaleUp {
-          animation: scaleUp 0.3s ease-out;
         }
         .animate-slideDown {
           animation: slideDown 0.3s ease-out;

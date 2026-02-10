@@ -32,7 +32,6 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // Simple function to get headers with validation
   const getHeaders = () => {
     const token = localStorage.getItem('token');
-    console.log('TaskContext - Getting headers, token exists:', !!token);
     
     if (!token) {
       console.error('No token found! User might not be logged in.');
@@ -55,8 +54,19 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       console.log('TaskContext - Fetching tasks with token...');
       
       const response = await axios.get('http://localhost:3000/tasks', { headers });
-      console.log('TaskContext - Tasks fetched successfully:', response.data.length);
-      setTasks(response.data);
+      
+      // DEBUG: Log the raw response
+      console.log('TaskContext - Raw tasks response:', response.data);
+      
+      // Ensure all timeSpent values are numbers
+      const tasksWithNumbers = response.data.map((task: any) => ({
+        ...task,
+        timeSpent: Number(task.timeSpent) || 0,
+      }));
+      
+      console.log('TaskContext - Tasks with converted numbers:', tasksWithNumbers);
+      
+      setTasks(tasksWithNumbers);
     } catch (error: any) {
       console.error('TaskContext - Failed to fetch tasks:', {
         message: error.message,
@@ -65,8 +75,6 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       });
       
       setError(error.response?.data?.message || 'Failed to fetch tasks');
-      
-      // Don't clear token here, let AuthContext handle it
       throw error;
     } finally {
       setLoading(false);
@@ -131,18 +139,48 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setError(null);
     try {
       const headers = getHeaders();
+      
+      // Get the task before updating to show in toast
+      const taskToUpdate = tasks.find(task => task.id === id);
+      const previousTime = taskToUpdate?.timeSpent || 0;
+      
+      console.log('TaskContext - Updating task time:', {
+        taskId: id,
+        secondsToAdd: seconds,
+        previousTime,
+        newTotal: previousTime + seconds
+      });
+      
       const response = await axios.post(`http://localhost:3000/tasks/${id}/timer`, 
         { seconds },
         { headers }
       );
+      
       const updatedTask = response.data;
+      
+      // Log the response to debug
+      console.log('TaskContext - Backend response:', updatedTask);
+      
+      // Ensure timeSpent is a number in the updated task
+      const updatedTaskWithNumber = {
+        ...updatedTask,
+        timeSpent: Number(updatedTask.timeSpent) || 0,
+      };
+      
+      // Update local state with the converted number
       setTasks(prev => prev.map(task => 
-        task.id === id ? updatedTask : task
+        task.id === id ? updatedTaskWithNumber : task
       ));
-      return updatedTask;
+      
+      return updatedTaskWithNumber;
     } catch (error: any) {
-      console.error('TaskContext - Failed to update task time:', error);
-      setError(error.response?.data?.message || 'Failed to update task time');
+      console.error('TaskContext - Failed to update task time:', {
+        error: error.message,
+        response: error.response?.data
+      });
+      
+      const errorMessage = error.response?.data?.message || 'Failed to update task time';
+      setError(errorMessage);
       throw error;
     }
   };

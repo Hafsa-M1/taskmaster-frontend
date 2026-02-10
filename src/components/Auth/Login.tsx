@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -37,9 +38,28 @@ const Login = () => {
 
     try {
       await login(formData.email, formData.password);
+      toast.success('Logged in successfully!', {
+        duration: 3000,
+        icon: '👋',
+        style: {
+          background: '#1e293b',
+          color: '#fff',
+          border: '1px solid #475569',
+        },
+      });
       navigate('/dashboard');
     } catch (err: any) {
-      setError(err.message || 'Invalid email or password');
+      const errorMessage = err.message || 'Invalid email or password';
+      setError(errorMessage);
+      toast.error(errorMessage, {
+        duration: 4000,
+        icon: '⚠️',
+        style: {
+          background: '#7f1d1d',
+          color: '#fecaca',
+          border: '1px solid #dc2626',
+        },
+      });
     } finally {
       setLoading(false);
     }
@@ -88,7 +108,9 @@ const Login = () => {
                 </span>
               </div>
             </Link>
-            <h2 className="text-2xl font-bold text-white">Welcome Back</h2>
+            <h2 className="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 hover:from-indigo-300 hover:to-purple-300 transition-all duration-300">
+              Welcome Back
+            </h2>
             <p className="mt-2 text-slate-400">
               Sign in to continue your productivity journey
             </p>
@@ -121,7 +143,7 @@ const Login = () => {
                     type="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="relative block w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all duration-300 text-white placeholder-slate-500 focus:bg-slate-800"
+                    className="relative block w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all duration-300 text-slate-100 placeholder-slate-500 focus:bg-slate-800"
                     placeholder="you@example.com"
                     required
                   />
@@ -139,12 +161,7 @@ const Login = () => {
                   <label htmlFor="password" className="block text-sm font-medium text-slate-300">
                     Password
                   </label>
-                  <Link 
-                    to="/forgot-password" 
-                    className="text-sm font-medium text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 hover:from-indigo-300 hover:to-purple-300 transition-all duration-300"
-                  >
-                    Forgot password?
-                  </Link>
+                  
                 </div>
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-xl blur opacity-0 group-focus-within:opacity-100 transition-opacity duration-300"></div>
@@ -154,7 +171,7 @@ const Login = () => {
                     type={showPassword ? "text" : "password"}
                     value={formData.password}
                     onChange={handleChange}
-                    className="relative block w-full px-4 py-3 pr-12 bg-slate-800/50 border border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all duration-300 text-black placeholder-slate-500 focus:bg-slate-800"
+                    className="relative block w-full px-4 py-3 pr-12 bg-slate-800/50 border border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all duration-300 text-slate-100 placeholder-slate-500 focus:bg-slate-800"
                     placeholder="••••••••"
                     required
                   />
@@ -232,7 +249,6 @@ const Login = () => {
           </form>
 
           
-
           {/* Register link */}
           <p className="mt-8 text-center text-sm text-slate-500">
             Don't have an account?{' '}

@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { TaskContext } from '../../context/TaskContext';
+import toast from 'react-hot-toast'; // ADD THIS IMPORT
 
 interface CreateTaskModalProps {
   onClose: () => void;
@@ -16,11 +17,13 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({ onClose }) => {
     
     try {
       await createTask(title, description);
+      toast.success('Task created successfully!'); // ADD THIS
       setTitle('');
       setDescription('');
       onClose();
     } catch (error) {
       console.error('Failed to create task:', error);
+      toast.error('Failed to create task'); // ADD THIS
     }
   };
 
