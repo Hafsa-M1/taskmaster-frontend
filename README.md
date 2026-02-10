@@ -1,46 +1,101 @@
-# Getting Started with Create React App
+# TaskMaster – Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Personal Task & Time Tracker**
+A clean, modern React + TypeScript frontend for creating tasks, tracking time spent, and viewing productivity insights.
 
-## Available Scripts
+Built as part of ANKA Technologies Full-Stack Development Assignment.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* React 18 + TypeScript
+* Vite (build tool)
+* Tailwind CSS v3
+* React Router v6
+* Axios (for API calls)
+* Context API (for authentication & global state)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
 
-### `npm test`
+## Setup Instructions (Local Development)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Clone the repository**
 
-### `npm run build`
+   ```bash
+   git clone https://github.com/Hafsa-M1/taskmaster-frontend.git
+   cd taskmaster-frontend
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Install dependencies**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   npm install
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Create `.env` file** in the root (or copy `.env.example` if present)
+   Add the following:
 
-### `npm run eject`
+   ```env
+   VITE_API_URL=http://localhost:3000
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+4. **Start the development server**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   npm run dev
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+   The app will open at [http://localhost:5173](http://localhost:5173) (or the port shown in terminal).
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+5. **Build for production** (optional)
 
-## Learn More
+   ```bash
+   npm run build
+   npm run preview
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Environment Variables
+
+| Variable       | Description                                                                           |
+| -------------- | ------------------------------------------------------------------------------------- |
+| `VITE_API_URL` | Base URL of the backend API (default: [http://localhost:3000](http://localhost:3000)) |
+
+**Important Notes:**
+
+* The backend server must be running at `http://localhost:3000`.
+* CORS must be enabled on the backend to allow requests from this frontend origin.
+
+---
+
+## Core Features Implemented
+
+* Modern landing page with intuitive UX
+* User registration & login forms
+* Protected dashboard route
+* Responsive design using Tailwind CSS
+
+---
+
+## API Endpoints (Frontend Usage)
+
+> Note: The frontend uses Axios to call these endpoints. Backend must be running.
+
+| Endpoint         | Method | Description                             |
+| ---------------- | ------ | --------------------------------------- |
+| `/auth/register` | POST   | Register a new user                     |
+| `/auth/login`    | POST   | Login existing user                     |
+| `/tasks`         | GET    | Fetch all tasks for logged-in user      |
+| `/tasks`         | POST   | Create a new task                       |
+| `/tasks/:id`     | PUT    | Update a task by ID                     |
+| `/tasks/:id`     | DELETE | Delete a task by ID                     |
+| `/time-tracking` | POST   | Start/stop task timer                   |
+| `/dashboard`     | GET    | Fetch dashboard data (tasks & insights) |
+
+---
+
+**Tip:** Keep `.env` secure and do not push sensitive credentials to the repository.
+
+
